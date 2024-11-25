@@ -12,9 +12,9 @@ public interface TransportadoraRepository extends JpaRepository<Transportadora, 
     public boolean existsByNome(String nome);
 
     public boolean existsByCnpj(String cnpj);
-    public boolean existsByNomeAndId(String nome, Long id);
+    public boolean existsByNomeAndIdNot(String nome, Long id);
 
-    public boolean existsByCnpjAndId(String cnpj, Long id);
+    public boolean existsByCnpjAndIdNot(String cnpj, Long id);
 
     public Optional<Transportadora> findByNome(String nome);
 }

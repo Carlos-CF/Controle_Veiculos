@@ -87,11 +87,11 @@ public class TransportadoraServiceImpl implements TransportadoraService {
         Transportadora paraEditar = transportadoraRepository.findById(idObjeto)
                 .orElseThrow(() -> new NoSuchElementException("A Transportadora com ID " + idObjeto + " não foi encontrada!"));
 
-        if (transportadoraRepository.existsByNomeAndId(objeto.getNome(), objeto.getId())){
+        if (transportadoraRepository.existsByNome(objeto.getNome())){
             return ResponseEntity.badRequest().body(new ApiResponse<>("Não é possivel cadastrar a Transportadora. Já existe outra Transportadora com o mesmo nome."));
         }
 
-        if (transportadoraRepository.existsByCnpjAndId(objeto.getCnpj(), objeto.getId())){
+        if (transportadoraRepository.existsByCnpjAndIdNot(objeto.getCnpj(), objeto.getId())){
             return  ResponseEntity.badRequest().body(new ApiResponse<>("Não é possivel cadastrar a Transportadora. Já existe outra Transportadora com o mesmo CNPJ."));
         }
 
@@ -101,7 +101,7 @@ public class TransportadoraServiceImpl implements TransportadoraService {
         dadosDto.setDataCriacao(dataHora);
         dadosDto.setUltimaAtualizacao(LocalDateTime.now());
         dadosDto.setId(idObjeto);
-        dadosDto.setStatus(dadosDto.isStatus());
+        dadosDto.setStatus(paraEditar.isStatus());
         BeanUtils.copyProperties(dadosDto, paraEditar, "id");
         Transportadora objetoAtualizado = transportadoraRepository.saveAndFlush(dadosDto);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(transportadoraMapper.converterParaDto(objetoAtualizado)));

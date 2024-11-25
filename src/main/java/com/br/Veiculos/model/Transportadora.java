@@ -16,14 +16,14 @@ public class Transportadora {
     private Long id;
 
     @Column
-    //@NotBlank
+    @NotBlank
     private String nome;
 
     @Column
     private boolean status;
 
-    //@CNPJ
-    @Column //(unique = true)
+    @CNPJ
+    @Column(unique = true)
     private String cnpj;
 
     @Column

@@ -9,23 +9,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 public class TransportadoraDTO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     private Long id;
 
     @NotBlank(message = "O nome não pode estar em branco!")
     @NotNull(message = "O nome não pode estar em branco!")
-    @JsonProperty(value = "nome")
     private String nome;
 
     private boolean status;
 
     @NotBlank(message = "O CNPJ precisa ser informado!")
     @NotNull(message = "O CNPJ precisa ser informado!")
-    // @CNPJ(message = "O CNPJ precisa ser válido!")
+    @CNPJ(message = "O CNPJ precisa ser válido!")
     private String cnpj;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
